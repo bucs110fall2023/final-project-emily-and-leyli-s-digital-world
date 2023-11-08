@@ -2,17 +2,17 @@
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
 # << Project Title >>
-## CS110 Final Project  << Semester, Year >>
+## CS110 Final Project  Fall, 2023
 
 ## Team Members
 
-Emily Jiang & Leyli Zeynalova
+Leyli Zeynalova & Emily Jiang *
 
 ***
 
 ## Project Description
 
-An interactive storytelling game that offers players a choice-driven narrative experience, allowing them to shape their character's journey. Within the game, players can also engage in various mini-games, including clicking pop-ups, memory challenges, and puzzles. Additionally, there's a combat system that enables the character to face challenges during their epic quest, that would use a turn based system.
+<< Give an overview of your project >>
 
 ***    
 
