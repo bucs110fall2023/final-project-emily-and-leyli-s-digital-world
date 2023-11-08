@@ -6,13 +6,13 @@
 
 ## Team Members
 
-<< List team member names >>
+Emily Jiang & Leyli Zeynalova
 
 ***
 
 ## Project Description
 
-<< Give an overview of your project >>
+An interactive storytelling game that offers players a choice-driven narrative experience, allowing them to shape their character's journey. Within the game, players can also engage in various mini-games, including clicking pop-ups, memory challenges, and puzzles. Additionally, there's a combat system that enables the character to face challenges during their epic quest, that would use a turn based system.
 
 ***    
 
