@@ -9,7 +9,7 @@ game_width = 900
 game_height = 500
 screen_size = (game_width, game_height)
 game_window = pygame.display.set_mode(screen_size)
-pygame.display.set_caption('Shooting Gallery')
+pygame.display.set_caption('Mascot Massacre')
 
 # load images
 images = {}
@@ -20,28 +20,23 @@ def load_image(name, filename, flip_x = False):
     if flip_x:
         images[name] = pygame.transform.flip(images[name], True, False)
 
-load_image('bg', 'assets/bg_blue.png')
-load_image('table', 'assets/bg_wood.png')
-load_image('curtain_top', 'assets/curtain_straight.png')
-load_image('curtain_left', 'assets/curtain.png')
-load_image('curtain_right', 'assets/curtain.png', True)
-load_image('water_back', 'assets/water1.png')
-load_image('water_front', 'assets/water2.png')
-load_image('grass', 'assets/grass1.png')
-load_image('duck_yellow', 'assets/duck_outline_yellow.png')
-load_image('duck_yellow_target', 'assets/duck_outline_target_yellow.png')
-load_image('duck_brown', 'assets/duck_outline_brown.png', True)
-load_image('duck_brown_target', 'assets/duck_outline_target_brown.png', True)
-load_image('stick_metal', 'assets/stick_metal.png')
-load_image('crosshair', 'assets/crosshair_outline_small.png')
-load_image('bullet', 'assets/icon_bullet_silver_long.png')
+load_image('background', 'assets/background.png')
+load_image('wood', 'assets/wood.png')
+load_image('waves', 'assets/grass1.png')
+load_image('ub_mascot', 'assets/ub_mascot.png')
+load_image('ub_target', 'assets/ub_target.png')
+load_image('stony_mascot', 'assets/stony_mascot.png', True)
+load_image('stony_target', 'assets/stony_target.png', True)
+load_image('pole', 'assets/pole.png')
+load_image('paper', 'assets/crumpled_paper.png')
 load_image('score', 'assets/text_score_small.png')
-load_image('colon', 'assets/text_dots_small.png')
+load_image('colon', 'assets/colon.png')
 load_image('gameover', 'assets/text_gameover.png')
+load_image('crosshair', 'assets/crosshair.png')
 
 # load the number images
 for i in range(10):
-    load_image(str(i), f'assets/text_{i}_small.png')
+    load_image(str(i), f'assets/num_{i}.png')
 
 # function for displaying the current score
 def display_score():
@@ -73,26 +68,26 @@ class Duck(pygame.sprite.Sprite):
         if self.is_hit == False:
             game_window.blit(self.image, (self.x, self.y))
 
-        # draw the stick image
-        stick_x = self.x + self.image.get_width() / 2 - images['stick_metal'].get_width() / 2
-        stick_y = self.y + self.image.get_height()
-        game_window.blit(images['stick_metal'], (stick_x, stick_y))
+        # draw the pole image
+        pole_x = self.x + self.image.get_width() / 2 - images['pole'].get_width() / 2
+        pole_y = self.y + self.image.get_height()
+        game_window.blit(images['pole'], (pole_x, pole_y))
 
 class BrownDuck(Duck):
     
     def __init__(self, x):
 
         super().__init__(x, game_height - 330)
-        self.speed = 6
+        self.speed = 3
 
         # brown ducks with a target are worth 4 points
         # 25% chance that this brown duck has a target
         self.points = random.choice([2, 2, 2, 4])
 
         if self.points == 4:
-            self.image = images['duck_brown_target']
+            self.image = images['stony_target']
         else:
-            self.image = images['duck_brown']
+            self.image = images['stony_mascot']
 
     def update(self):
 
@@ -114,16 +109,16 @@ class YellowDuck(Duck):
     def __init__(self, x):
 
         super().__init__(x, game_height - 300)
-        self.speed = 3.5
+        self.speed = 1.5
 
         # yellow ducks with a target are worth 2 points
         # 50% chance that this yellow duck has a target
         self.points = random.choice([1, 2])
 
         if self.points == 2:
-            self.image = images['duck_yellow_target']
+            self.image = images['ub_target']
         else:
-            self.image = images['duck_yellow']
+            self.image = images['ub_mascot']
 
     def update(self):
 
@@ -146,7 +141,7 @@ yellow_duck_group = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
 # game variables
-remaining_bullets = 15
+remaining_papers = 15
 score = 0
 
 def new_game():
@@ -160,13 +155,13 @@ def new_game():
 
     # add the yellow ducks
     for i in range(4):
-        duck = YellowDuck(i * (images['duck_yellow'].get_width() + 36) * 2)
+        duck = YellowDuck(i * (images['ub_mascot'].get_width() + 36) * 2)
         yellow_duck_group.add(duck)
         all_sprites.add(duck)
 
     # add the brown ducks
     for i in range(4):
-        duck = BrownDuck(i * (images['duck_brown'].get_width() + 36) * 2)
+        duck = BrownDuck(i * (images['stony_mascot'].get_width() + 36) * 2)
         brown_duck_group.add(duck)
         all_sprites.add(duck)
 
@@ -187,8 +182,8 @@ while running:
         # detect mouse click
         if event.type == MOUSEBUTTONDOWN:
 
-            # decrement bullets left
-            remaining_bullets -= 1
+            # decrement papers left
+            remaining_papers -= 1
 
             # coordinates of the mouse click
             click_x, click_y = event.pos
@@ -201,13 +196,13 @@ while running:
                     break
 
     # draw the background
-    for bg_x in range(0, game_width, images['bg'].get_width()):
-        for bg_y in range(0, game_height, images['bg'].get_height()):
-            game_window.blit(images['bg'], (bg_x, bg_y))
+    for background_x in range(0, game_width, images['background'].get_width()):
+        for background_y in range(0, game_height, images['background'].get_height()):
+            game_window.blit(images['background'], (background_x, background_y))
 
     # draw the grass
-    for grass_x in range(0, game_width, images['grass'].get_width()):
-        game_window.blit(images['grass'], (grass_x, game_height - 260))
+    for waves in range(0, game_width, images['waves'].get_width()):
+        game_window.blit(images['waves'], (waves, game_height - 260))
 
     # draw the brown ducks
     brown_duck_group.update()
@@ -215,8 +210,8 @@ while running:
         duck.draw()
 
     # draw the water (back)
-    for water_x in range(0, game_width, images['water_back'].get_width()):
-        game_window.blit(images['water_back'], (water_x, game_height - 180))
+    for waves in range(0, game_width, images['waves'].get_width()):
+        game_window.blit(images['waves'], (waves, game_height - 180))
 
     # draw the yellow ducks
     yellow_duck_group.update()
@@ -224,22 +219,16 @@ while running:
         duck.draw()
 
     # draw the water (front)
-    for water_x in range(-70, game_width, images['water_front'].get_width()):
-        game_window.blit(images['water_front'], (water_x, game_height - 155))
+    for waves in range(-70, game_width, images['waves'].get_width()):
+        game_window.blit(images['waves'], (waves, game_height - 155))
 
     # draw the table
-    for table_x in range(0, game_width, images['table'].get_width()):
-        game_window.blit(images['table'], (table_x, game_height - 80))
+    for wood_x in range(0, game_width, images['wood'].get_width()):
+        game_window.blit(images['wood'], (wood_x, game_height - 80))
 
-    # draw remaining bullets
-    for i in range(remaining_bullets):
-        game_window.blit(images['bullet'], (i * 30 + 100, game_height - 60))
-
-    # draw the curtains
-    game_window.blit(images['curtain_left'], (0, 50))
-    game_window.blit(images['curtain_right'], (game_width - images['curtain_right'].get_width(), 50))
-    for curtain_x in range(0, game_width, images['curtain_top'].get_width()):
-        game_window.blit(images['curtain_top'], (curtain_x, 0))
+    # draw remaining papers
+    for i in range(remaining_papers):
+        game_window.blit(images['paper'], (i * 30 + 100, game_height - 60))
 
     # draw the crosshair
     crosshair_x, crosshair_y = pygame.mouse.get_pos()
@@ -250,8 +239,8 @@ while running:
     display_score()
     pygame.display.update()
 
-    # display game over if there are no more bullets remaining
-    gameover = remaining_bullets == 0
+    # display game over if there are no more papers remaining
+    gameover = remaining_papers == 0
     while gameover:
         clock.tick(fps)
 
@@ -272,7 +261,7 @@ while running:
                 gameover = False
                 running = True
                 new_game()
-                remaining_bullets = 10
+                remaining_papers = 10
                 score = 0
 
 pygame.quit()
