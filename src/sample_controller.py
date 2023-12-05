@@ -141,7 +141,7 @@ yellow_duck_group = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
 # game variables
-remaining_papers = 15
+remaining_papers = 10
 score = 0
 
 def new_game():
