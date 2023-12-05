@@ -22,7 +22,7 @@ def load_image(name, filename, flip_x = False):
 
 load_image('background', 'assets/background.png')
 load_image('wood', 'assets/wood.png')
-load_image('waves', 'assets/grass1.png')
+load_image('waves', 'assets/waves.png')
 load_image('ub_mascot', 'assets/ub_mascot.png')
 load_image('ub_target', 'assets/ub_target.png')
 load_image('stony_mascot', 'assets/stony_mascot.png', True)
@@ -48,7 +48,7 @@ def display_score():
         game_window.blit(images[digit], (digit_x, 5))
         digit_x += 25
 
-class Duck(pygame.sprite.Sprite):
+class Mascot(pygame.sprite.Sprite):
     
     def __init__(self, x, y):
 
@@ -56,15 +56,15 @@ class Duck(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-        # randomly adjust the y coordinate to vary the heights of the ducks
+        # randomly adjust the y coordinate to vary the heights of the mascots
         self.y += random.randint(0, 5) * 10
 
-        # keep track of whether this duck has been hit or not
+        # keep track of whether this mascot has been hit or not
         self.is_hit = False
 
     def draw(self):
 
-        # draw the duck if it hasn't been hit yet
+        # draw the mascot if it hasn't been hit yet
         if self.is_hit == False:
             game_window.blit(self.image, (self.x, self.y))
 
@@ -73,15 +73,15 @@ class Duck(pygame.sprite.Sprite):
         pole_y = self.y + self.image.get_height()
         game_window.blit(images['pole'], (pole_x, pole_y))
 
-class BrownDuck(Duck):
+class UBMascot(Mascot):
     
     def __init__(self, x):
 
         super().__init__(x, game_height - 330)
         self.speed = 3
 
-        # brown ducks with a target are worth 4 points
-        # 25% chance that this brown duck has a target
+        # mascots with a target are worth 4 points
+        # 25% chance that this mascot has a target
         self.points = random.choice([2, 2, 2, 4])
 
         if self.points == 4:
@@ -93,26 +93,26 @@ class BrownDuck(Duck):
 
         self.x -= self.speed
 
-        # if this duck goes off screen, remove and add a new duck to the group
+        # if this mascot goes off screen, remove and add a new mascot to the group
         if self.x < 0 - self.image.get_width():
-            duck = BrownDuck(1200 - self.image.get_width())
-            brown_duck_group.add(duck)
-            all_sprites.add(duck)
+            mas = UBMascot(1200 - self.image.get_width())
+            UB_mas_group.add(mas)
+            all_sprites.add(mas)
             self.kill()
 
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
 
-class YellowDuck(Duck):
+class SBMascot(Mascot):
     
     def __init__(self, x):
 
         super().__init__(x, game_height - 300)
         self.speed = 1.5
 
-        # yellow ducks with a target are worth 2 points
-        # 50% chance that this yellow duck has a target
+        # Mascots with a target are worth 2 points
+        # 50% chance that this mascot has a target
         self.points = random.choice([1, 2])
 
         if self.points == 2:
@@ -124,11 +124,11 @@ class YellowDuck(Duck):
 
         self.x += self.speed
 
-        # if this duck goes off screen, remove and add a new duck to the group
+        # if this mascot goes off screen, remove and add a new mascot to the group
         if self.x > 1200 - self.image.get_width():
-            duck = YellowDuck(0 - self.image.get_width())
-            yellow_duck_group.add(duck)
-            all_sprites.add(duck)
+            mas = SBMascot(0 - self.image.get_width())
+            stony_mas_group.add(mas)
+            all_sprites.add(mas)
             self.kill()
 
         self.rect = self.image.get_rect()
@@ -136,8 +136,8 @@ class YellowDuck(Duck):
         self.rect.y = self.y
 
 # sprite groups
-brown_duck_group = pygame.sprite.Group()
-yellow_duck_group = pygame.sprite.Group()
+UB_mas_group = pygame.sprite.Group()
+stony_mas_group = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
 # game variables
@@ -149,21 +149,21 @@ def new_game():
     # hide the mouse cursor
     pygame.mouse.set_visible(False)
 
-    brown_duck_group.empty()
-    yellow_duck_group.empty()
+    UB_mas_group.empty()
+    stony_mas_group.empty()
     all_sprites.empty()
 
-    # add the yellow ducks
+    # add the mascots
     for i in range(4):
-        duck = YellowDuck(i * (images['ub_mascot'].get_width() + 36) * 2)
-        yellow_duck_group.add(duck)
-        all_sprites.add(duck)
+        mas = SBMascot(i * (images['ub_mascot'].get_width() + 36) * 2)
+        stony_mas_group.add(mas)
+        all_sprites.add(mas)
 
-    # add the brown ducks
+    # add the mascots
     for i in range(4):
-        duck = BrownDuck(i * (images['stony_mascot'].get_width() + 36) * 2)
-        brown_duck_group.add(duck)
-        all_sprites.add(duck)
+        mas = UBMascot(i * (images['stony_mascot'].get_width() + 36) * 2)
+        UB_mas_group.add(mas)
+        all_sprites.add(mas)
 
 new_game()
 
@@ -188,7 +188,7 @@ while running:
             # coordinates of the mouse click
             click_x, click_y = event.pos
 
-            # check if a duck was hit
+            # check if a mascot was hit
             for sprite in all_sprites:
                 if sprite.is_hit == False and sprite.rect.collidepoint(click_x, click_y):
                     sprite.is_hit = True
@@ -204,21 +204,21 @@ while running:
     for waves in range(0, game_width, images['waves'].get_width()):
         game_window.blit(images['waves'], (waves, game_height - 260))
 
-    # draw the brown ducks
-    brown_duck_group.update()
-    for duck in brown_duck_group:
-        duck.draw()
+    # draw the mascots
+    UB_mas_group.update()
+    for mas in UB_mas_group:
+        mas.draw()
 
-    # draw the water (back)
+    # draw the waves
     for waves in range(0, game_width, images['waves'].get_width()):
         game_window.blit(images['waves'], (waves, game_height - 180))
 
-    # draw the yellow ducks
-    yellow_duck_group.update()
-    for duck in yellow_duck_group:
-        duck.draw()
+    # draw the mascots
+    stony_mas_group.update()
+    for mas in stony_mas_group:
+        mas.draw()
 
-    # draw the water (front)
+    # draw the waves (front)
     for waves in range(-70, game_width, images['waves'].get_width()):
         game_window.blit(images['waves'], (waves, game_height - 155))
 

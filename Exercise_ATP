@@ -1,0 +1,45 @@
+Test Case 1: Cursor Movement
+Test Description: Verify that a cursor appears on screen
+Test Steps: 
+1- Run the game
+2- Move the mouse around 
+
+Expected Outcome: Cursor has an aim icon and is tracked across the screen
+
+Test Case 2: Moving Images
+Test Description: Confirm that images appear to move across the screen
+
+Test Steps:
+1- Run the game
+2- Wait to see if icons move across the screen
+
+Expected Outcome: Images of the schools mascots move across the screen
+
+Test Case 3: Shooting Mechanic
+Test Description: When you hit the mascots they are "shot" and no longer appear on screen 
+Test Steps:
+1- Run the game
+2- Move the cursor over one of the mascot targets
+3- Press the mousebutton 
+4- See if the mascot disappears off the screen and increases the score count
+
+Expected Outcome: Hitting the school mascots takes them off the screen and updates the score
+
+Test Case 4: Updating Score
+Test Description: Score number values that appear reflect the points earned by playing the game
+Test Steps:
+1- Run the game
+2- Move the cursor over one of the mascot targets
+3- Press the mousebutton 
+4- See if the mascot disappears off the screen 
+5- Check if the score on the top left updates and relfects the points earned
+
+Expected Outcome: Score updates on screen based off of hitting certain mascots
+
+Test Case 5: Special Targets
+Test Description: Certain mascots move across the screen and have targets painted on them at random
+Test Steps:
+1- Run the game
+2- Wait to view if different variations of the mascots appear on screen, some being with the targets and some without
+
+Expected Outcome: Randomly has mascots with targets that are worth more and reflected in the score
