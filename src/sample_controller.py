@@ -261,7 +261,7 @@ while running:
                 gameover = False
                 running = True
                 new_game()
-                remaining_papers = 10
+                remaining_papers = 15
                 score = 0
 
 pygame.quit()
