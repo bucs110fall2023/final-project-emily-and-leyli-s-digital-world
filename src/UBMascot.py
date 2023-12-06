@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import random
-#from Duck import Duck
+
 
 class UBMascot(pygame.sprite.Sprite):
     
@@ -20,13 +20,13 @@ class UBMascot(pygame.sprite.Sprite):
         self.x = x
         self.y = (height - 300) + random.randint(0, 5) * 10
 
-        # keep track of whether this duck has been hit or not
+        # keep track of whether this mascot has been hit or not
         self.is_hit = False
 
         self.speed = 1
 
-        # yellow ducks with a target are worth 2 points
-        # 50% chance that this yellow duck has a target
+        # yellow mascots with a target are worth 2 points
+        # 50% chance that this yellow mascot has a target
         self.points = random.choice([1, 2])
         if self.points == 2:
             self.image = self.images['ub_target']
@@ -37,11 +37,11 @@ class UBMascot(pygame.sprite.Sprite):
     def update(self):
         self.x += self.speed
 
-        # if this duck goes off screen, remove and add a new duck to the group
+        # if this mascot goes off screen, remove and add a new mascot to the group
         if self.x > 1200 - self.image.get_width():
-            duck = UBMascot(0 - self.image.get_width(), self.height, self.images, self.screen,self.ub_group, self.all_sprites)
-            self.ub_group.add(duck)
-            self.all_sprites.add(duck)
+            mascot = UBMascot(0 - self.image.get_width(), self.height, self.images, self.screen,self.ub_group, self.all_sprites)
+            self.ub_group.add(mascot)
+            self.all_sprites.add(mascot)
             self.kill()
         
         self.rect = self.image.get_rect()
@@ -50,7 +50,7 @@ class UBMascot(pygame.sprite.Sprite):
 
     def draw(self):
 
-        # draw the duck if it hasn't been hit yet
+        # draw the mascot if it hasn't been hit yet
         if self.is_hit == False:
             self.screen.blit(self.image, (self.x, self.y))
 

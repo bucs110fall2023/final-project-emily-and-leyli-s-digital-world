@@ -56,16 +56,16 @@ class Controller:
 
         self.STATE = "MENU"
 
-         # add the yellow ducks
+         # add the mascots
         for i in range(4):
-            duck = UBMascot.UBMascot(i * (self.images['ub_mascot'].get_width() + 36) * 2, self.height, self.images, self.screen, self.ub_group, self.all_sprites)
-            self.ub_group.add(duck)
-            self.all_sprites.add(duck)
+            mascot = UBMascot.UBMascot(i * (self.images['ub_mascot'].get_width() + 36) * 2, self.height, self.images, self.screen, self.ub_group, self.all_sprites)
+            self.ub_group.add(mascot)
+            self.all_sprites.add(mascot)
 
         for i in range(4):
-            duck = SBMascot.SBMascot(i * (self.images['stony_mascot'].get_width() + 36) * 2, self.height, self.images, self.screen, self.ub_group, self.all_sprites,self.remaining_papers, self.power_sprites)
-            self.stony_group.add(duck)
-            self.all_sprites.add(duck)
+            mascot = SBMascot.SBMascot(i * (self.images['stony_mascot'].get_width() + 36) * 2, self.height, self.images, self.screen, self.ub_group, self.all_sprites,self.remaining_papers, self.power_sprites)
+            self.stony_group.add(mascot)
+            self.all_sprites.add(mascot)
 
     def load_image(self, name, filename, flip_x = False):
         self.images[name] = pygame.image.load(filename).convert_alpha()
@@ -139,7 +139,7 @@ class Controller:
                     # coordinates of the mouse click
                     click_x, click_y = event.pos
 
-                    # check if a duck was hit
+                    # check if a mascot was hit
                     for sprite in self.power_sprites:
                         if sprite.is_hit == False and sprite.rect.collidepoint(click_x, click_y):
                             sprite.is_hit = True
@@ -161,20 +161,20 @@ class Controller:
             for waves in range(0, self.width, self.images['waves'].get_width()):
                 self.screen.blit(self.images['waves'], (waves, self.height - 260))
 
-            # draw the brown ducks
+            # draw the mascots
             self.stony_group.update()
-            for duck in self.stony_group:
-                duck.draw()
+            for mascot in self.stony_group:
+                mascot.draw()
 
 
             # draw the waves
             for waves in range(0, self.width, self.images['waves'].get_width()):
                 self.screen.blit(self.images['waves'], (waves, self.height - 180))
 
-            # draw the yellow ducks ##############################################################
+            # draw the mascots
             self.ub_group.update()
-            for duck in self.ub_group:
-                duck.draw()
+            for mascot in self.ub_group:
+                mascot.draw()
 
             # draw the waves 
             for waves in range(-70, self.width, self.images['waves'].get_width()):

@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 import random
-#from Duck import Duck
 
 class SBMascot(pygame.sprite.Sprite):
     
@@ -22,13 +21,13 @@ class SBMascot(pygame.sprite.Sprite):
         self.x = x
         self.y = (height - 300) + random.randint(0, 5) * 10
 
-        # keep track of whether this duck has been hit or not
+        # keep track of whether this mascot has been hit or not
         self.is_hit = False
 
         self.speed = 2
 
-        # brown ducks with a target are worth 2 points
-        # 50% chance that this brown duck has a target
+        # brown mascots with a target are worth 2 points
+        # 50% chance that this brown mascot has a target
         self.points = random.choice([2, 2, 2, 4])
         x =random.choice([0,1,2])
         if self.points == 4:
@@ -45,11 +44,11 @@ class SBMascot(pygame.sprite.Sprite):
     def update(self):
         self.x -= self.speed
 
-        # if this duck goes off screen, remove and add a new duck to the group
+        # if this mascot goes off screen, remove and add a new mascot to the group
         if self.x < 0 - self.image.get_width():
-            duck = SBMascot(1200 - self.image.get_width(), self.height, self.images, self.screen,self.stony_group, self.all_sprites, self.remaining_papers, self.power_sprites)
-            self.stony_group.add(duck)
-            self.all_sprites.add(duck)
+            mascot = SBMascot(1200 - self.image.get_width(), self.height, self.images, self.screen,self.stony_group, self.all_sprites, self.remaining_papers, self.power_sprites)
+            self.stony_group.add(mascot)
+            self.all_sprites.add(mascot)
             self.kill()
         
         self.rect = self.image.get_rect()
@@ -58,7 +57,7 @@ class SBMascot(pygame.sprite.Sprite):
 
     def draw(self):
 
-        # draw the duck if it hasn't been hit yet
+        # draw the mascot if it hasn't been hit yet
         if self.is_hit == False:
             self.screen.blit(self.image, (self.x, self.y))
 
