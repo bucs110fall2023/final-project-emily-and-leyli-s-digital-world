@@ -17,7 +17,7 @@ class Controller:
         self.clock = pygame.time.Clock()
         pygame.font.init()
 
-        #LOAD IMAGES help me
+        #LOAD IMAGES help me please
         self.images = {}  # Initialize the images dictionary
         self.load_image('stony_powerup', 'assets/stony_powerup.png')
         self.load_image('menu_screen', 'assets/menu_screen.png')
