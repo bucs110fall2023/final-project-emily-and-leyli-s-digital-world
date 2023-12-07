@@ -36,6 +36,8 @@ class Controller:
         self.load_image('colon', 'assets/colon.png')
         self.load_image('gameover', 'assets/text_gameover.png')
         self.load_image('crosshair', 'assets/crosshair.png')
+        self.load_image('timer', 'assets/timer.png')
+        self.load_image('end_screen', 'assets/end_screen.png')
         # load the number images
         
         for i in range(10):
@@ -216,22 +218,27 @@ class Controller:
             digit_x += 25
 
     def display_timer(self):
-        self.screen.blit(self.images['score'], (505, 5))
+        self.screen.blit(self.images['timer'], (505, 5))
         self.screen.blit(self.images['colon'], (5 + self.images['score'].get_width() + 500, 5))
 
-        digit_x = self.images['score'].get_width() + self.images['colon'].get_width() + 520
+        digit_x = self.images['score'].get_width() + self.images['colon'].get_width()
         self.display_new_time = str(self.timer)[:2]
         for digit in str(self.display_new_time):
-            self.screen.blit(self.images[digit], (digit_x, 5))
+            self.screen.blit(self.images[digit], (digit_x - 100, 5))
             digit_x += 25
     
     def gameOver(self):
 
         ''' Drawing End Screen '''
+        # SET UP End screen
+        for background_x in range(0, self.width, self.images['end_screen'].get_width()):
+            for background_y in range(0, self.height, self.images['end_screen'].get_height()):
+                self.screen.blit(self.images['end_screen'], (background_x, background_y))
+
         # load image sprites
-        self.quitButton = menu.Menu("Quit", self.width/2, 300, "assets/exit.png")
-        self.scoreContainer = menu.Menu("Score", self.width/2, 200, "assets/text_score_small.png")
-        self.gameOverContainer = menu.Menu("Score", self.width/2, 100, "assets/text_gameover.png")
+        self.quitButton = menu.Menu("Quit", self.width/2, 350, "assets/exit.png")
+        self.scoreContainer = menu.Menu("Score", self.width/2, 275, "assets/text_score_small.png")
+        self.gameOverContainer = menu.Menu("text_gameover", self.width/2, 200, "assets/text_gameover.png")
         self.menu_sprites = pygame.sprite.Group(self.quitButton, self.scoreContainer,self.gameOverContainer)
             
         # load sprites
