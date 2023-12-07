@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 import random
 
-
 class UBMascot(pygame.sprite.Sprite):
     
     def __init__(self, x, height, images, screen, ub_group, all_sprites):

@@ -212,9 +212,9 @@ class Controller:
         self.screen.blit(self.images['score'], (5, 5))
         self.screen.blit(self.images['colon'], (5 + self.images['score'].get_width(), 5))
 
-        digit_x = self.images['score'].get_width() + self.images['colon'].get_width() + 20
+        digit_x = self.images['score'].get_width() + self.images['colon'].get_width()  # Updated this line
         for digit in str(self.score):
-            self.screen.blit(self.images[digit], (digit_x - 20, 5))
+            self.screen.blit(self.images[digit], (digit_x - 100, 5))
             digit_x += 25
 
     def display_timer(self):
@@ -224,7 +224,7 @@ class Controller:
         digit_x = self.images['score'].get_width() + self.images['colon'].get_width()
         self.display_new_time = str(self.timer)[:2]
         for digit in str(self.display_new_time):
-            self.screen.blit(self.images[digit], (digit_x - 100, 5))
+            self.screen.blit(self.images[digit], (digit_x + 400, 5))
             digit_x += 25
     
     def gameOver(self):
