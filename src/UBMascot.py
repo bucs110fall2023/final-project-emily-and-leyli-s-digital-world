@@ -5,7 +5,22 @@ import random
 class UBMascot(pygame.sprite.Sprite):
     
     def __init__(self, x, height, images, screen, ub_group, all_sprites):
+        '''
+        general function description:
+		This function initializes the UB mascot object
 
+		arg: (type) description
+        self: instance of class
+        x: The x-coordinate position for the UB mascot 
+        height: The height of the screen
+        images: A doctionary holding the imaages of the UB mascots
+        screen: the game screen
+        ub_group: sprite group containing the UB mascots
+        all_sprites: sprite group containing all sprites in game
+
+		return: (type) description
+        Does not return anything
+	    '''
         pygame.sprite.Sprite.__init__(self)
         
         self.screen = screen
@@ -34,6 +49,16 @@ class UBMascot(pygame.sprite.Sprite):
             
 
     def update(self):
+        '''
+        general function description:
+		This function updates the UB mascots when it moves off the screen
+
+		arg: (type) description
+        self: instance of class
+
+		return: (type) description
+        Does not return anything
+	    '''
         self.x += self.speed
 
         # if this mascot goes off screen, remove and add a new mascot to the group
@@ -48,7 +73,16 @@ class UBMascot(pygame.sprite.Sprite):
         self.rect.y = self.y
 
     def draw(self):
+        '''
+        general function description:
+		This function draws the pole and keeps the UB mascot on screen if it hasn't been hit
 
+		arg: (type) description
+        self: instance of class
+
+		return: (type) description
+        Does not return anything
+	    '''
         # draw the mascot if it hasn't been hit yet
         if self.is_hit == False:
             self.screen.blit(self.image, (self.x, self.y))

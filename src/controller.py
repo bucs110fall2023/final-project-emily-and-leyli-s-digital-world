@@ -117,7 +117,7 @@ class Controller:
     def gameLoop(self):
         # SET FPS
         clock = pygame.time.Clock()
-        fps = 120
+        fps = 140
         
         while self.STATE == "GAME":
 
@@ -210,21 +210,21 @@ class Controller:
     # function for displaying the current score
     def display_score(self):
         self.screen.blit(self.images['score'], (5, 5))
-        self.screen.blit(self.images['colon'], (5 + self.images['score'].get_width(), 5))
+        self.screen.blit(self.images['colon'], (self.images['score'].get_width() -100, 10))
 
         digit_x = self.images['score'].get_width() + self.images['colon'].get_width()  # Updated this line
         for digit in str(self.score):
-            self.screen.blit(self.images[digit], (digit_x - 100, 5))
+            self.screen.blit(self.images[digit], (digit_x - 110, 9))
             digit_x += 25
 
     def display_timer(self):
         self.screen.blit(self.images['timer'], (505, 5))
-        self.screen.blit(self.images['colon'], (5 + self.images['score'].get_width() + 500, 5))
+        self.screen.blit(self.images['colon'], (self.images['score'].get_width() + 400, 10))
 
         digit_x = self.images['score'].get_width() + self.images['colon'].get_width()
         self.display_new_time = str(self.timer)[:2]
         for digit in str(self.display_new_time):
-            self.screen.blit(self.images[digit], (digit_x + 400, 5))
+            self.screen.blit(self.images[digit], (digit_x + 390, 9))
             digit_x += 25
     
     def gameOver(self):
@@ -235,15 +235,21 @@ class Controller:
             for background_y in range(0, self.height, self.images['end_screen'].get_height()):
                 self.screen.blit(self.images['end_screen'], (background_x, background_y))
 
+
         # load image sprites
         self.quitButton = menu.Menu("Quit", self.width/2, 350, "assets/exit.png")
         self.scoreContainer = menu.Menu("Score", self.width/2, 275, "assets/text_score_small.png")
         self.gameOverContainer = menu.Menu("text_gameover", self.width/2, 200, "assets/text_gameover.png")
         self.menu_sprites = pygame.sprite.Group(self.quitButton, self.scoreContainer,self.gameOverContainer)
-            
+        
         # load sprites
         self.menu_sprites.draw(self.screen)
-        
+
+        self.screen.blit(self.images['colon'], (self.images['score'].get_width() + 245, 260))
+        digit_x = self.images['score'].get_width() + self.images['colon'].get_width()  # Updated this line
+        for digit in str(self.score):
+            self.screen.blit(self.images[digit], (digit_x + 238, 258))
+            digit_x += 25
         pygame.display.flip()
 
         # quit button logic
@@ -262,3 +268,5 @@ class Controller:
                     if self.quitButton.rect.collidepoint(pos):
                         pygame.quit()
                         sys.exit()
+
+

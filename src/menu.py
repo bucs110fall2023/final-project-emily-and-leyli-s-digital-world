@@ -4,10 +4,19 @@ import random
 class Menu(pygame.sprite.Sprite):
     def __init__(self, name, x, y, img_file):
         '''
-		initializes object's state
-		arg: self: instance of class; name: name of object; x: x-position of object; y: y-position of object; img_file: image file to represent object
-		return: none
-	'''
+        general function description:
+		This function initializes the menu object
+
+		arg: (type) description
+        self: instance of class
+        name: name attribute for the menu object
+        x: x-position of the menu position
+        y: y-position of the menu position
+        img_file: the image file to represent the menu object
+
+		return: (type) description
+        Does not return anything
+	    '''
         #initialize all the Sprite functionality
         pygame.sprite.Sprite.__init__(self)
         
