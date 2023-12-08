@@ -43,8 +43,6 @@ class Controller:
         for i in range(10):
             self.load_image(str(i), f'assets/num_{i}.png')
 
-        
-
         #LOAD SPRITES
         self.stony_group = pygame.sprite.Group()
         self.ub_group = pygame.sprite.Group()
@@ -55,6 +53,7 @@ class Controller:
         self.remaining_papers = 10
         self.score = 0
         self.timer = 6000
+        self.highscore = 0
 
         self.STATE = "MENU"
 
@@ -70,10 +69,21 @@ class Controller:
             self.all_sprites.add(mascot)
 
     def load_image(self, name, filename, flip_x = False):
+        '''
+        general function description: Loads an image and store it in the 'images' dictionary under the given name.
+        args: (type) description
+        (self) instance of the class
+        name (str): The name under which the loaded image will be stored.
+        filename (str): The path to the image file to be loaded.
+        flip_x (bool, optional): If True, flip the image on the x-axis. Default is False.
+        
+        return: (None) Does not return a value
+        '''
         self.images[name] = pygame.image.load(filename).convert_alpha()
         # flip image on the x-axis
         if flip_x:
             self.images[name] = pygame.transform.flip(self.images[name], True, False)
+
 
     def mainLoop(self):
           while True:
@@ -83,6 +93,15 @@ class Controller:
                 self.gameLoop()
             elif(self.STATE == "GAMEOVER"):
                 self.gameOver()
+    '''
+    general function description: Continuously executes the main loop of the program, handling different states.
+    - "MENU": Calls the mainmenu() function.
+    - "GAME": Calls the gameLoop() function.
+    - "GAMEOVER": Calls the gameOver() function.
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
 
     def mainmenu(self):
         # MAIN MENU BUTTONS
@@ -113,11 +132,18 @@ class Controller:
             # DRAW MENU SPRITES
             self.menu_sprites.draw(self.screen)
             pygame.display.flip()
+    '''
+    general function description: Display the main menu and allows for interactions with menu buttons.
+    This method initializes main menu buttons and continuously checks for user input. 
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
     
     def gameLoop(self):
         # SET FPS
         clock = pygame.time.Clock()
-        fps = 120
+        fps = 130
         
         while self.STATE == "GAME":
 
@@ -206,6 +232,25 @@ class Controller:
 
             if(self.remaining_papers == 0 or self.timer <= 0):
                 self.STATE = 'GAMEOVER'
+            
+            if self.score > self.highscore:
+                self.highscore = self.score
+                with open ("src/highscore.json", 'w')  as f:
+                    f.write(str(self.score))
+
+            with open("src/highscore.json", 'r') as f:
+                try: 
+                    self.highscore = int(f.read())
+                except:
+                    self.highscore = 0
+    '''
+    general function description:  Runs the main game loop, includes 
+    mouse clicks, updating game state, and continuously rendering
+    the game screen. Updates highscore based off of players game score.
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
    
     # function for displaying the current score
     def display_score(self):
@@ -213,9 +258,15 @@ class Controller:
         self.screen.blit(self.images['colon'], (5 + self.images['score'].get_width(), 5))
 
         digit_x = self.images['score'].get_width() + self.images['colon'].get_width()  # Updated this line
-        for digit in str(self.score):
-            self.screen.blit(self.images[digit], (digit_x - 100, 5))
+        for self.digit in str(self.score):
+            self.screen.blit(self.images[self.digit], (digit_x - 100, 5))
             digit_x += 25
+    '''
+    general function description: Display the player's score on the game screen.
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
 
     def display_timer(self):
         self.screen.blit(self.images['timer'], (505, 5))
@@ -226,6 +277,12 @@ class Controller:
         for digit in str(self.display_new_time):
             self.screen.blit(self.images[digit], (digit_x + 400, 5))
             digit_x += 25
+    '''
+    general function description: Display the remaining time on the game screen.
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
     
     def gameOver(self):
 
@@ -240,7 +297,9 @@ class Controller:
         self.scoreContainer = menu.Menu("Score", self.width/2, 275, "assets/text_score_small.png")
         self.gameOverContainer = menu.Menu("text_gameover", self.width/2, 200, "assets/text_gameover.png")
         self.menu_sprites = pygame.sprite.Group(self.quitButton, self.scoreContainer,self.gameOverContainer)
-            
+
+    
+        
         # load sprites
         self.menu_sprites.draw(self.screen)
         
@@ -262,3 +321,9 @@ class Controller:
                     if self.quitButton.rect.collidepoint(pos):
                         pygame.quit()
                         sys.exit()
+    '''
+    general function description: Displays the game over screen with the final score and provides a quit button.
+    args: (type) description
+    (self) instance of the class
+    return: (None) Does not return a value
+    '''
