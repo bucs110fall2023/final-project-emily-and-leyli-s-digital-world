@@ -29,8 +29,6 @@ class UBMascot(pygame.sprite.Sprite):
         self.ub_group = ub_group
         self.all_sprites = all_sprites
 
-       # self.rect = self.image.get_rect()
-
         self.x = x
         self.y = (height - 300) + random.randint(0, 5) * 10
 
@@ -39,8 +37,8 @@ class UBMascot(pygame.sprite.Sprite):
 
         self.speed = 1
 
-        # yellow mascots with a target are worth 2 points
-        # 50% chance that this yellow mascot has a target
+        # mascots with a target are worth 2 points
+        # 50% chance that this mascot has a target
         self.points = random.choice([1, 2])
         if self.points == 2:
             self.image = self.images['ub_target']

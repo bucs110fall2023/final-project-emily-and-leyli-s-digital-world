@@ -33,8 +33,6 @@ class SBMascot(pygame.sprite.Sprite):
         self.remaining_papers = remaining_papers
         self.power_sprites = power_sprites
 
-       # self.rect = self.image.get_rect()
-
         self.x = x
         self.y = (height - 300) + random.randint(0, 5) * 10
 
@@ -43,8 +41,8 @@ class SBMascot(pygame.sprite.Sprite):
 
         self.speed = 2
 
-        # brown mascots with a target are worth 2 points
-        # 50% chance that this brown mascot has a target
+        # mascots with a target are worth 2 points
+        # 50% chance that this mascot has a target
         self.points = random.choice([2, 2, 2, 4])
         x =random.choice([0,1,2])
         if self.points == 4:
