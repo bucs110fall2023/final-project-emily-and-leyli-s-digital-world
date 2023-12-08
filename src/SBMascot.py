@@ -5,7 +5,24 @@ import random
 class SBMascot(pygame.sprite.Sprite):
     
     def __init__(self, x, height, images, screen, stony_group, all_sprites, remaining_papers, power_sprites):
+        '''
+        general function description:
+		This function initializes the stony mascot object
 
+		arg: (type) description
+        self: instance of class
+        x: The x-coordinate position for the stony mascot 
+        height: The height of the screen
+        images: A doctionary holding the imaages of the various stony mascots
+        screen: the game screen
+        stony_group: sprite group containing the stony mascots
+        all_sprites: sprite group containing all sprites in game
+        remaining_papers: an int showing the amount of paper balls left in game
+        power_sprites: sprite group for power-up stony mascot
+
+		return: (type) description
+        Does not return anything
+	    '''
         pygame.sprite.Sprite.__init__(self)
         
         self.screen = screen
@@ -42,6 +59,16 @@ class SBMascot(pygame.sprite.Sprite):
             
 
     def update(self):
+        '''
+        general function description:
+		This function updates the stony mascots when it moves off the screen
+
+		arg: (type) description
+        self: instance of class
+
+		return: (type) description
+        Does not return anything
+	    '''
         self.x -= self.speed
 
         # if this mascot goes off screen, remove and add a new mascot to the group
@@ -56,7 +83,16 @@ class SBMascot(pygame.sprite.Sprite):
         self.rect.y = self.y
 
     def draw(self):
+        '''
+        general function description:
+		This function draws the pole and keeps the stony mascot on screen if it hasn't been hit
 
+		arg: (type) description
+        self: instance of class
+
+		return: (type) description
+        Does not return anything
+	    '''
         # draw the mascot if it hasn't been hit yet
         if self.is_hit == False:
             self.screen.blit(self.image, (self.x, self.y))
