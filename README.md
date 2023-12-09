@@ -22,11 +22,11 @@ There is a point system implemented for shooting certain mascots, and one poweru
 
 ### Initial Design
 
-![initial gui](assets/gui.jpg)
+![initial gui](assets/gui.png)
 
 ### Final Design
 
-![final gui](assets/finalgui.jpg)
+![final gui](assets/finalgui.png)
 
 ## Program Design
 ### Features
@@ -82,9 +82,9 @@ Test Steps:
 1- Run the game
 2- Move the cursor over one of the mascot targets
 3- Press the mousebutton 
-4- See if the mascot disappears off the screen and increases the score count
+4- See if the mascot disappears off the screen
 
-Expected Outcome: Hitting the school mascots takes them off the screen and updates the score
+Expected Outcome: Hitting the school mascots takes them off the screen
 
 Test Case 4: Updating Score
 Test Description: Score number values that appear reflect the points earned by playing the game
